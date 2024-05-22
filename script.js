@@ -1,22 +1,3 @@
-// Codez un système de recherche grâce à l'API de Wikipedia.
-// L'utilisateur peut effectuer une recherche et voir s'afficher des résultats sur lesquelles il pourra cliquer si il veut se déplacer sur la page de l'article en question. 
-
-
-// 1. Gérez l'entrée de la recherche grâce au formulaire et à l'input.
-
-// 2. Utilisez l'API de Wikipedia afin d'obtenir les résultats de cette recherche.
-// Voici l'api vous deverez la compléter avec le contenu de la recherche:
-// https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=
-
-// 3.Redirgiez l'utilisateur vers la page de l'article en question en cliquant sur le titre de l'article.
-// API a completer : https://en.wikipedia.org/?curid=
-
-
-// Points à prendre en compte:
-// a. Ajoutez un loader pendant le chargement.
-// b. Affichez les résultats en dessous de l'input.
-// c. Faites en sorte qu'on puisse éffectuer autant de recherches qu'on le souhaite.
-// d.Bonus : Gérez les erreurs.
 const form = document.querySelector('form');
 const input = document.querySelector('input');
 const errorMsg = document.querySelector('.error-msg');
@@ -49,6 +30,8 @@ async function wikiApiCall(searchInput){
     try{
         const response = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&origin=*&srlimit=20&srsearch=${searchInput}`);
 
+        resultDisplay.innerHTML = "";
+
         // convertir en objet js 
         const data = await response.json();
    
@@ -59,6 +42,8 @@ async function wikiApiCall(searchInput){
         errorMsg.textContent = `${error}`
         loader.style.display = "none"
     }
+
+    input.value= "";
 }
 
 
